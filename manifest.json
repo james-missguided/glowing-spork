@@ -9,11 +9,12 @@
     },
     {
       "src": "rsz_mg-icon.png",
-      "sizes": "144X144",
+      "sizes": "144X",
       "type": "image/png"
     }
   ],
   "start_url": "/",
   "theme_color": "#f1d1d7",
-  "background_color": "#f1d1d7"
+  "background_color": "#f1d1d7",
+  "display": "standalone"
 }
