@@ -4,14 +4,16 @@
   "private": true,
   "homepage": "https://testingonlive.github.io/improved-barnacle",
   "dependencies": {
-      "material-ui": "^0.17.4",
-      "query-string": "^4.3.4",
+    "material-ui": "^0.17.4",
+    "query-string": "^4.3.4",
     "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-tap-event-plugin": "^2.0.1",
+    "react-web-notification": "^0.2.4"
   },
   "devDependencies": {
-      "gh-pages": "^1.0.0",
+    "gh-pages": "^1.0.0",
     "react-scripts": "1.0.6"
   },
   "scripts": {
@@ -21,5 +23,5 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-}
+  }
 }
