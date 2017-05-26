@@ -33,16 +33,22 @@ function parseResponse(res) {
   }).filter(({prodData}) => !!prodData)
 }
 
-function getInitialState() {
+function getStateFromLS() {
+  console.log('init state');
   const stateFromLS = localStorage.getItem(storageKey);
-  let state;
 
-  /*if (stateFromLS) {
+  if (stateFromLS) {
     try {
-
+      return JSON.parse(stateFromLS);
+    } catch (e) {
+      return [];
     }
-  }*/
+  }
+
+  return [];
 }
+
+
 
 export default class extends Component {
 
@@ -69,10 +75,15 @@ export default class extends Component {
     window.addEventListener('online', this.handleOnlineStatusChange);
     window.addEventListener('offline', this.handleOnlineStatusChange);
 
-    getSoicalFeed({limit: 6})
-      .then(parseResponse)
-      .then(posts => {
-        this.setState({posts})
+    console.log('online', navigator.onLine);
+
+    navigator.onLine
+      ? getSoicalFeed({ limit: 6 }).then(parseResponse).then(posts => {
+          localStorage.setItem(storageKey, JSON.stringify(posts));
+          this.setState({ posts });
+        })
+      : this.setState({
+        posts: getStateFromLS()
       });
   }
 
@@ -112,6 +123,7 @@ export default class extends Component {
             {cards}
           </ul>
           <RaisedButton
+            disabled={this.state.status === 'offline'}
             label="Load More"
             fullWidth={false}
             onClick={this.handleLoadMore}

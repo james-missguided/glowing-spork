@@ -2,7 +2,7 @@
   "name": "pwa-social",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://testingonlive.github.io/improved-barnacle",
+  "homepage": "https://james-missguided.github.io/glowing-spork",
   "dependencies": {
       "material-ui": "^0.17.4",
       "query-string": "^4.3.4",
