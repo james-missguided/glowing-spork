@@ -6,6 +6,11 @@
       "src": "favicon.ico",
       "sizes": "192x192",
       "type": "image/png"
+    },
+    {
+      "src": "rsz_mg-icon.png",
+      "sizes": "144X144",
+      "type": "image/png"
     }
   ],
   "start_url": "./index.html",
