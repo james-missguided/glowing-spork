@@ -1,0 +1,46 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #f1d1d7;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.card-list {
+  width: calc(100% - 10px);
+  max-width: 800px;
+  list-style: none;
+  padding: 0;
+  margin: 30px;
+}
+
+.grid-cont {
+  width: calc(100% - 20px);
+  max-width: 600px;
+  margin: 10px 0;
+  padding: 5px;
+  background: white;
+}
+
+.card-list > li {
+  margin-bottom: 20px;
+}
+
+@media (min-width: 600px) {
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .card-list > li {
+    width: calc(50% - 10px);
+  }
+
+}
