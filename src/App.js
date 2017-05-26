@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import Card from './components/card.js';
 import Grid from './components/grid.js';
+import Header from './components/header.js'
 import queryString from 'query-string';
 
 import getSoicalFeed from './services/get_social_feed';
@@ -37,10 +38,12 @@ export default class extends Component {
 
     this.state = {
       posts: [],
-      version: queryString.parse(window.location.hash).version
+      version: queryString.parse(window.location.hash).version,
+      status: navigator.onLine ? 'online' : 'offline'
     }
 
     this.handleLoadMore = this.handleLoadMore.bind(this);
+    this.handleOnlineStatusChange = this.handleOnlineStatusChange.bind(this);
   }
 
   componentWillMount() {
@@ -49,6 +52,9 @@ export default class extends Component {
         version: queryString.parse(window.location.hash).version
       })
     })
+
+    window.addEventListener('online', this.handleOnlineStatusChange);
+    window.addEventListener('offline', this.handleOnlineStatusChange);
 
     getSoicalFeed({limit: 6})
       .then(parseResponse)
@@ -69,6 +75,11 @@ export default class extends Component {
       });
   }
 
+  handleOnlineStatusChange() {
+    const status = navigator.onLine ? 'online' : 'offline';
+    this.setState({status});
+  }
+
 
   render() {
     const opt1 = () => {
@@ -82,6 +93,8 @@ export default class extends Component {
 
       return (
         <div className="wrapper">
+          <Header status={this.state.status}/>
+
           <ul className="card-list">
             {cards}
           </ul>
