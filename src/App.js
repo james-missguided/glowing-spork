@@ -78,7 +78,7 @@ export default class extends Component {
     console.log('online', navigator.onLine);
 
     navigator.onLine
-      ? getSoicalFeed({ limit: 6 }).then(parseResponse).then(posts => {
+      ? getSoicalFeed({ limit: 20 }).then(parseResponse).then(posts => {
           localStorage.setItem(storageKey, JSON.stringify(posts));
           this.setState({ posts });
         })
@@ -102,6 +102,10 @@ export default class extends Component {
   handleOnlineStatusChange() {
     const status = navigator.onLine ? 'online' : 'offline';
     this.setState({status});
+  }
+
+  handleInstall() {
+
   }
 
 
