@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 import Card from './components/card.js';
 import Grid from './components/grid.js';
+import Header from './components/header.js'
 import queryString from 'query-string';
 
 import getSoicalFeed from './services/get_social_feed';
@@ -11,6 +12,8 @@ import {searchObj, sensibleImg} from './helpers';
 import './App.css';
 
 import Notification  from './components/Notification.js';
+
+const storageKey = 'socailData';
 
 function last(arr) {
   return arr[arr.length - 1];
@@ -31,6 +34,23 @@ function parseResponse(res) {
     }
   }).filter(({prodData}) => !!prodData)
 }
+
+function getStateFromLS() {
+  console.log('init state');
+  const stateFromLS = localStorage.getItem(storageKey);
+
+  if (stateFromLS) {
+    try {
+      return JSON.parse(stateFromLS);
+    } catch (e) {
+      return [];
+    }
+  }
+
+  return [];
+}
+
+
 
 export default class extends Component {
 
@@ -105,10 +125,12 @@ export default class extends Component {
 
     this.state = {
       posts: [],
-      version: queryString.parse(window.location.hash).version
+      version: queryString.parse(window.location.hash).version,
+      status: navigator.onLine ? 'online' : 'offline'
     }
 
     this.handleLoadMore = this.handleLoadMore.bind(this);
+    this.handleOnlineStatusChange = this.handleOnlineStatusChange.bind(this);
   }
 
   componentWillMount() {
@@ -118,10 +140,18 @@ export default class extends Component {
       })
     })
 
-    getSoicalFeed({limit: 6})
-      .then(parseResponse)
-      .then(posts => {
-        this.setState({posts})
+    window.addEventListener('online', this.handleOnlineStatusChange);
+    window.addEventListener('offline', this.handleOnlineStatusChange);
+
+    console.log('online', navigator.onLine);
+
+    navigator.onLine
+      ? getSoicalFeed({ limit: 20 }).then(parseResponse).then(posts => {
+          localStorage.setItem(storageKey, JSON.stringify(posts));
+          this.setState({ posts });
+        })
+      : this.setState({
+        posts: getStateFromLS()
       });
   }
 
@@ -135,6 +165,15 @@ export default class extends Component {
           posts: [...prevState.posts, ...newPosts]
         }))
       });
+  }
+
+  handleOnlineStatusChange() {
+    const status = navigator.onLine ? 'online' : 'offline';
+    this.setState({status});
+  }
+
+  handleInstall() {
+
   }
 
 
@@ -171,11 +210,13 @@ export default class extends Component {
 	          <source src='./sound.ogg' type='audio/ogg' />
 	          <embed hidden='true' autostart='false' loop='false' src='./sound.mp3' />
 	        </audio>
+          <Header status={this.state.status}/>
 
           <ul className="card-list">
             {cards}
           </ul>
           <RaisedButton
+            disabled={this.state.status === 'offline'}
             label="Load More"
             fullWidth={false}
             onClick={this.handleLoadMore}
