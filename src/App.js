@@ -11,6 +11,8 @@ import {searchObj, sensibleImg} from './helpers';
 
 import './App.css';
 
+const storageKey = 'socailData';
+
 function last(arr) {
   return arr[arr.length - 1];
 }
@@ -29,6 +31,17 @@ function parseResponse(res) {
       id: data.id
     }
   }).filter(({prodData}) => !!prodData)
+}
+
+function getInitialState() {
+  const stateFromLS = localStorage.getItem(storageKey);
+  let state;
+
+  /*if (stateFromLS) {
+    try {
+
+    }
+  }*/
 }
 
 export default class extends Component {
