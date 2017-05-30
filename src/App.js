@@ -48,6 +48,19 @@ function getStateFromLS() {
   return [];
 }
 
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', function(evt) {
+  console.log('beforeinstallprompt Event fired');
+  evt.preventDefault();
+
+  // Stash the event so it can be triggered later.
+  deferredPrompt = evt;
+
+  return false;
+});
+
+
 
 
 export default class extends Component {
@@ -88,6 +101,12 @@ export default class extends Component {
   }
 
   handleLoadMore() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt = null;
+    }
+
+
     const lastTimestamp = last(this.state.posts).timeStamp;
 
     getSoicalFeed({limit: 6, before: lastTimestamp})
