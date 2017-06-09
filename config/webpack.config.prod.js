@@ -300,7 +300,7 @@ module.exports = {
       stripPrefix: paths.appBuild.replace(/\\/g, '/') + '/',
       runtimeCaching: [{
           handler: 'cacheFirst',
-          urlPattern: /https:\/\/curations-imaging.nexus.bazaarvoice.com\//,
+          urlPattern: /(\.bazaarvoice\.com\/)|(\.feedmagnet\.com\/)/,
       }]
     }),
     // Moment.js is an extremely popular library that bundles large locale files
