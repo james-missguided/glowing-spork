@@ -21,9 +21,9 @@ let CURRENT_CACHES = {
 };
 const OFFLINE_URL = "/offline-fallback/index.html";
 const OFFLINE_STATICS = [
-  "/offline-fallback/missguided_logo1.gif",
-  "/offline-fallback/Offline.css",
-  "/offline-fallback/No_Internet_Unicorn.jpg"
+  "/glowing-spork//offline-fallback/missguided_logo1.gif",
+  "/glowing-spork//offline-fallback/Offline.css",
+  "/glowing-spork//offline-fallback/No_Internet_Unicorn.jpg"
 ]
 
 function createCacheBustedRequest(url) {
@@ -114,7 +114,7 @@ self.addEventListener("fetch", event => {
   }
 
   OFFLINE_STATICS.forEach(PATH => {
-    var filename = PATH.split('/')[2];
+    var filename = PATH.split('/')[3];
 
     console.log('filename', filename);
     console.log('url', event.request.url);
