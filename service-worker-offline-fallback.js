@@ -19,11 +19,11 @@ const CACHE_VERSION = 1;
 let CURRENT_CACHES = {
   offline: "offline-v" + CACHE_VERSION
 };
-const OFFLINE_URL = "/offline-fallback/index.html";
+const OFFLINE_URL = "/glowing-spork/offline-fallback/index.html";
 const OFFLINE_STATICS = [
-  "/glowing-spork//offline-fallback/missguided_logo1.gif",
-  "/glowing-spork//offline-fallback/Offline.css",
-  "/glowing-spork//offline-fallback/No_Internet_Unicorn.jpg"
+  "/glowing-spork/offline-fallback/missguided_logo1.gif",
+  "/glowing-spork/offline-fallback/Offline.css",
+  "/glowing-spork/offline-fallback/No_Internet_Unicorn.jpg"
 ]
 
 function createCacheBustedRequest(url) {
